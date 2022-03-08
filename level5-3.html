@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Factory</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded',function(event){
+  window.onload = function() { 
+    
+
+  var dataText = [ "A factory. Clouds of smoke above. The people - simple, the life - hard, boring. Life with the mask and greasepaint off is a savage dog snarling. You must tirelessly fight, must be tough and persist, to extract from the teeth of the angry, bristling beast a crust. Slapping belts in the shed, screeching shafts overhead, and the air is so stale you can't easily deeply inhale. Not far off the spring breeze rocks the fields, the sun calls... Leaning skyward the trees shade - the factory walls. How unwanted, forgotten and strange are the fields! They have thrown in the dustbin the sky and its dreams. For to stray for a second or soften your heart, is to lose to no purpose your strong worker's arm. You must shout in the clatter and din of machines for your words to pass over. the spaces between. I shouted for years -  an eternity... I gathered the others too shouted in chorus - the factory, the machinery and the man in the farthest darkest corner. This shout forged an alloy of steel and we armoured our life with its plate. Just try putting a spoke on the wheel -  it's your own hand you'll break. You, factory, still seek to blind us with smoke and soot layer on layer. In vain! For you teach us to struggle, we'll bring the sundown to us here. So many toil-  blackened faces under your tyranny smart, but one heart within you tirelessly beats with a thousand hearts."];
+  //text input caret
+  var caret = "\u258B";
+  
+  // type a text
+  // keep calling itself until the text is finished
+  function type(text, i, fnCallback) {
+    // chekc if text isn't finished yet
+    if (i < (text.length)) {
+      // add next character to text + caret
+      document.querySelector("#text").textContent = text.substring(0, i+1) + caret;
+
+      // delay and call this function again for next character
+      setTimeout(function() {
+        type(text, i + 1, fnCallback)
+      }, 15);
+    }
+    // text finished, call callback if there is a callback function
+    else if (typeof fnCallback == 'function') {
+      // call callback after timeout
+      setTimeout(fnCallback, 1500);
+    }
+  }
+  // start animation for a text in the dataText array
+   function StartAnimation(i) {
+     if (typeof dataText[i] == 'undefined'){
+        setTimeout(function() {
+          StartAnimation(0);
+        }, 900);
+     }
+     // check if dataText[i] exists
+    if (i < dataText[i].length) {
+      // text exists! start typewriter animation
+      type(dataText[i], 0, function(){
+      // after callback (and whole text has been animated), start next text
+      StartAnimation(i + 1);
+     });
+    }
+  }
+  // start the text animation
+  StartAnimation(0);
+  }
+});
+</script>
+<style>
+    body{
+  background-color:#fff;
+}
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+#box{
+  max-width:1000px;
+  width:100%;
+  overflow:hidden; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+
+svg{
+  width:100%;
+  padding-bottom: 55.55%;
+  height: 1px;
+  overflow: visible;
+ }
+</style>
+<body>
+    <div id="box">  
+        <svg>
+            
+          <path d="M0 0h728v400H0z" fill="#ffff"/> 
+           
+          <defs>
+            <path id= "s" d= "M419.94,250.92c-23.37-12.46-49.06-6.34-59.4,9.77-7.9,12.31-6,29.18,1.5,39.85,14.84,21,55.56,23.5,76.69,1.5,19.22-20,15-52.77,0-72.18-21.34-27.65-59.34-21.57-66.17-20.3-7.25,1.35-32.5,7.19-48.12,31.58-12.42,19.4-14.67,44.15-6,64.66,14.46,34.3,54,44.12,78.95,43.61,5.26-.11,38.06-1.31,63.16-27.82,23.16-24.47,31.07-61.32,19.55-91.73-7.33-19.36-20.43-30.56-27.07-36.09-33-27.55-73.13-24.36-82.71-23.31-7.79.86-45.89,5.87-74.44,39.1-6.63,7.72-26.35,31.39-27.07,66.92-.8,39.46,22.39,66.06,28.57,72.93,43.34,48.18,112.29,37.69,121.8,36.09,12.51-2.11,50.93-9.17,79.7-42.86a129.58,129.58,0,0,0,27.82-60.15,130.89,130.89,0,0,0-7.52-72.18c-15.85-38-45.76-56.38-57.14-63.16-57-34-117.06-16.42-128.57-12.78a163,163,0,0,0-70.68,45.11c-9.3,10.19-27.59,30.72-35.34,63.16-11.52,48.21,8.65,87.53,15,100a157.26,157.26,0,0,0,39.85,49.62c27.39,22.42,55,29.08,69.17,32.33,16.22,3.72,74.61,16.16,133.08-17.29A175.82,175.82,0,0,0,550,341.14c6.13-10.94,20.49-37.26,21.8-74.44s-11.2-64.5-18-78.95C533.1,144.1,501.67,121,495.13,116.33,459.78,91.11,425.07,86.21,407.91,84c-19.22-2.48-75.4-8.87-131.58,25.56-8.93,5.47-49.85,31.59-74.44,85-7.75,16.82-33,77.9-8.27,147.37,29.21,82,105.5,112.19,120.3,118C396.23,492.5,497,472.71,558.29,408.81c49-51.1,56.11-113,57.14-123.31,5.31-53.12-12.1-94.1-20.3-112.78-5.88-13.4-18.29-41-44.36-67.67C502.73,55.9,443,45.39,421.44,41.89c-19.46-3.15-111-15.6-191,45.11-13,9.88-55.52,43-77.44,103-15.5,42.43-13.76,79.25-12.78,96.24,2.38,41.59,14.28,71.61,17.29,78.95a241.81,241.81,0,0,0,61.65,86.47c67.46,60.31,148.44,62.82,169.17,63.16,64.1,1,112.71-21.18,136.84-34.59C549.06,467,610.92,431.42,641,355.43c28-70.72,11.55-133.77,5.26-157.89C643.37,186.46,631,141.89,595.88,96c-13-16.93-29.48-38.09-58.65-56.39a199.74,199.74,0,0,0-79.7-28.57"/>
+          </defs>  
+          
+          <text font-family="monospace" font-size="15" fill="#151E3D">
+          <textPath id="text" xlink:href="#s">A factory. Clouds of smoke above. The people - simple, the life - hard, boring. Life with the mask and greasepaint off is a savage dog snarling. You must tirelessly fight, must be tough and persist, to extract from the teeth of the angry, bristling beast a crust. Slapping belts in the shed, screeching shafts overhead, and the air is so stale you can't easily deeply inhale. Not far off the spring breeze rocks the fields, the sun calls... Leaning skyward the trees shade - the factory walls. How unwanted, forgotten and strange are the fields! They have thrown in the dustbin the sky and its dreams. For to stray for a second or soften your heart, is to lose to no purpose your strong worker's arm. You must shout in the clatter and din of machines for your words to pass over. the spaces between. I shouted for years -  an eternity... I gathered the others too shouted in chorus - the factory, the machinery and the man in the farthest darkest corner. This shout forged an alloy of steel and we armoured our life with its plate. Just try putting a spoke on the wheel -  it's your own hand you'll break. You, factory, still seek to blind us with smoke and soot layer on layer. In vain! For you teach us to struggle, we'll bring the sundown to us here. So many toil-  blackened faces under your tyranny smart, but one heart within you tirelessly beats with a thousand hearts.</textPath>
+          </text>  
+        </svg> 
+      </div>
+      
+</body>
+<footer>
+	<br>
+	<br>
+	<a href="./index.html">Home</a>
+	<br>
+	<br>
+	<a href="./level5-4.html">Next</a>
+</footer>
+</html>
